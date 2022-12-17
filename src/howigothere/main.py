@@ -44,6 +44,7 @@ class HowIGotHereSettings(SettingsCollector):
     color_func = SC_Setting(_default_col_func, value_type=str)
     color_path = SC_Setting(_default_col_path, value_type=str)
     color_lineno = SC_Setting(_default_col_lineno, value_type=str)
+    start_from_dir = SC_Setting(None)
 
 
 @sc_defaults(HowIGotHereSettings, scope_arg="namespace")
