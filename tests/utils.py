@@ -5,7 +5,7 @@ Testing utilities.
 import unittest
 from typing import Optional
 
-from whereami import whereami
+from howigothere import howigothere
 
 
 try:
@@ -44,7 +44,7 @@ class SomeClass:
     @staticmethod
     def some_method(start_from_dir: Optional[str | tuple[str, ...]]):
         def some_inner_function() -> str:
-            return whereami(
+            return howigothere(
                 no_color=True,
                 start_from_dir=start_from_dir,
             )

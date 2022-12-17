@@ -1,7 +1,7 @@
 from inspect import FrameInfo
 from unittest.mock import MagicMock
 
-import whereami.utils
+import howigothere.utils
 
 from .utils import TestsBase
 
@@ -13,53 +13,53 @@ class TestAuxFunctions(TestsBase):
         frame_info.filename = "/quick/brown/fox/jumps/over/the/lazy/tests.py"
 
         self.assertEqual(
-            whereami.utils.get_path(frame_info, None),
+            howigothere.utils.get_path(frame_info, None),
             "/quick/brown/fox/jumps/over/the/lazy/tests.py",
         )
         self.assertEqual(
-            whereami.utils.get_path(frame_info, 999),
+            howigothere.utils.get_path(frame_info, 999),
             "quick/brown/fox/jumps/over/the/lazy/tests.py",
         )
         self.assertEqual(
-            whereami.utils.get_path(frame_info, 2),
+            howigothere.utils.get_path(frame_info, 2),
             "the/lazy/tests.py",
         )
         self.assertEqual(
-            whereami.utils.get_path(frame_info, 1),
+            howigothere.utils.get_path(frame_info, 1),
             "lazy/tests.py",
         )
         self.assertEqual(
-            whereami.utils.get_path(frame_info, 0),
+            howigothere.utils.get_path(frame_info, 0),
             "tests.py",
         )
 
     def test_ct(self):
         self.assertEqual(
-            whereami.utils.ct("TeSt", "", False, ""),
+            howigothere.utils.ct("TeSt", "", False, ""),
             "TeSt",
         )
         self.assertEqual(
-            whereami.utils.ct("TeSt", "", False, "rEsEt"),
+            howigothere.utils.ct("TeSt", "", False, "rEsEt"),
             "TeSt",
         )
         self.assertEqual(
-            whereami.utils.ct("TeSt", "", True, ""),
+            howigothere.utils.ct("TeSt", "", True, ""),
             "TeSt",
         )
         self.assertEqual(
-            whereami.utils.ct("TeSt", "", True, "rEsEt"),
+            howigothere.utils.ct("TeSt", "", True, "rEsEt"),
             "TeSt",
         )
 
         self.assertEqual(
-            whereami.utils.ct("TeSt", "CoL", False, ""), "CoLTeSt",
+            howigothere.utils.ct("TeSt", "CoL", False, ""), "CoLTeSt",
         )
         self.assertEqual(
-            whereami.utils.ct("TeSt", "CoL", False, "rEsEt"), "CoLTeStrEsEt",
+            howigothere.utils.ct("TeSt", "CoL", False, "rEsEt"), "CoLTeStrEsEt",
         )
         self.assertEqual(
-            whereami.utils.ct("TeSt", "CoL", True, ""), "TeSt",
+            howigothere.utils.ct("TeSt", "CoL", True, ""), "TeSt",
         )
         self.assertEqual(
-            whereami.utils.ct("TeSt", "CoL", True, "rEsEt"), "TeSt",
+            howigothere.utils.ct("TeSt", "CoL", True, "rEsEt"), "TeSt",
         )

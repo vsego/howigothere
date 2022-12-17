@@ -4,34 +4,35 @@ import re
 from unittest import mock
 import sys
 
-from whereami import main
+from howigothere import main
 
 from .utils import TestsBase, SomeClass, MockColorama
 
 
-class TestWhereAmI(TestsBase):
+class TestHowIGotHere(TestsBase):
 
-    def test_whereami(self):
+    def test_howigothere(self):
         frameinfo = inspect.getframeinfo(inspect.currentframe())
         result_with_sfd = SomeClass.some_method("tests")
         result_with_sfd_bogus = SomeClass.some_method("bogus dir")
         result_with_sfds = SomeClass.some_method(("src", "tests"))
         result_without_sfd = SomeClass.some_method(None)
+        lineno = frameinfo.lineno
         self.assertEqual(
             result_with_sfd,
-            f"test_whereami (tests/test_whereami.py:{frameinfo.lineno + 1})"
+            f"test_howigothere (tests/test_howigothere.py:{lineno + 1})"
             f" > some_method (tests/utils.py:51)"
             f" > some_inner_function (tests/utils.py:47)",
         )
         self.assertEqual(result_with_sfd_bogus, "")
         self.assertEqual(
             result_with_sfds,
-            f"test_whereami (tests/test_whereami.py:{frameinfo.lineno + 3})"
+            f"test_howigothere (tests/test_howigothere.py:{lineno + 3})"
             f" > some_method (tests/utils.py:51)"
             f" > some_inner_function (tests/utils.py:47)",
         )
         result_with_sfd_moved = (
-            f"test_whereami (tests/test_whereami.py:{frameinfo.lineno + 4})"
+            f"test_howigothere (tests/test_howigothere.py:{lineno + 4})"
             f" > some_method (tests/utils.py:51)"
             f" > some_inner_function (tests/utils.py:47)",
         )

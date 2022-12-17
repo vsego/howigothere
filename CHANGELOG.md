@@ -11,4 +11,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First fully functional version
 
-[1.0.0]: https://github.com/vsego/whereami/releases/tag/v1.0.0
+[1.0.0]: https://github.com/vsego/howigothere/releases/tag/v1.0.0

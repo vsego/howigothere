@@ -32,9 +32,9 @@ else:
     _default_col_lineno = Fore.CYAN
 
 
-class WhereAmISettings(SettingsCollector):
+class HowIGotHereSettings(SettingsCollector):
     class SC_Config:
-        prefix = "whereami"
+        prefix = "howigothere"
     keep_dirs = SC_Setting(1, value_type=int)
     sep = SC_Setting(" > ", value_type=str)
     call_format = SC_Setting("{function} ({path}:{lineno})", value_type=str)
@@ -46,8 +46,8 @@ class WhereAmISettings(SettingsCollector):
     color_lineno = SC_Setting(_default_col_lineno, value_type=str)
 
 
-@sc_defaults(WhereAmISettings, scope_arg="namespace")
-def whereami(
+@sc_defaults(HowIGotHereSettings, scope_arg="namespace")
+def howigothere(
     *,
     namespace: Optional[str] = None, keep_dirs: Optional[int], sep: str,
     call_format: str, no_color: bool, color_reset: str, color_sep: str,
@@ -62,10 +62,10 @@ def whereami(
 
     :param namespace: Namespace for the settings. For example, if given as
         `"foo__bar"`, the colour for the separator will be taken from
-        `whereami__foo__bar__color_sep`. If that doesn't exist, it'll be taken
-        from `whereami__foo__color_sep` and, if that doesn't exist either,
-        it'll be taken from `whereami__foo__color_sep` and, if that doesn't
-        exist either, it'll be taken from `whereami__color_sep`.
+        `howigothere__foo__bar__color_sep`. If that doesn't exist, it'll be
+        taken from `howigothere__foo__color_sep` and, if that doesn't exist
+        either, it'll be taken from `howigothere__foo__color_sep` and, if that
+        doesn't exist either, it'll be taken from `howigothere__color_sep`.
     :param keep_dirs: The number of directories to keep in each path. For
         example, if set to 2 and some path is `/a/b/c/d/e.py`, the path will be
         displayed as `c/d/e.py` (two directories kept: `c` and `d`). Set to
@@ -103,8 +103,8 @@ def whereami(
             start_from_dir = tuple(os.path.abspath(d) for d in start_from_dir)
         use_info = False
 
-    # `[2:]` because we're skipping `whereami` itself and its wrapper created
-    # by `@sc_defaults`.
+    # `[2:]` because we're skipping `howigothere` itself and its wrapper
+    # created by `@sc_defaults`.
     for frame_info in reversed(inspect.stack()[2:]):
         if not use_info:
             path = os.path.abspath(f"{frame_info.filename}{os.sep}")

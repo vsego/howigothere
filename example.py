@@ -1,11 +1,11 @@
 """
-WhereAmI example.
+HowIGotHere example.
 """
 
 import sys
 
 from settings_collector import sc_settings
-from whereami import whereami
+from howigothere import howigothere
 
 
 namespace_x_colors: dict[str, str]
@@ -19,38 +19,38 @@ except ImportError:
     namespace_x_colors = dict()
 else:
     namespace_x_colors = {
-        "whereami__x__color_reset": Fore.RESET,
-        "whereami__x__color_sep": Fore.BLUE,
-        "whereami__x__color_func": Fore.RED,
-        "whereami__x__color_path": Fore.GREEN,
-        "whereami__x__color_lineno": Fore.YELLOW,
+        "howigothere__x__color_reset": Fore.RESET,
+        "howigothere__x__color_sep": Fore.BLUE,
+        "howigothere__x__color_func": Fore.RED,
+        "howigothere__x__color_path": Fore.GREEN,
+        "howigothere__x__color_lineno": Fore.YELLOW,
     }
 
 
 def f():
     """
-    Call inner function to print various `whereami()` outputs.
+    Call inner function to print various `howigothere()` outputs.
     """
     def g():
         """
-        Print various `whereami()` outputs.
+        Print various `howigothere()` outputs.
         """
-        print("Default:            ", whereami())
-        print("Namespace 'x':      ", whereami(namespace="x"))
-        print("Local arguments:    ", whereami(sep=" ==> ", keep_dirs=None))
-        print("Namespace 'mono':   ", whereami(namespace="mono"))
-        print("Local monochrome:   ", whereami(no_color=True))
-        print("Namespace 'mono__y':", whereami(namespace="mono__y"))
+        print("Default:            ", howigothere())
+        print("Namespace 'x':      ", howigothere(namespace="x"))
+        print("Local arguments:    ", howigothere(sep=" ==> ", keep_dirs=None))
+        print("Namespace 'mono':   ", howigothere(namespace="mono"))
+        print("Local monochrome:   ", howigothere(no_color=True))
+        print("Namespace 'mono__y':", howigothere(namespace="mono__y"))
     g()
 
 
 if __name__ == "__main__":
     sc_settings.update({
-        "whereami__x__trim_paths": 2,
-        "whereami__x__sep": "~~>",
-        "whereami__x__call_format": "{function} [{lineno}: {path}]",
+        "howigothere__x__trim_paths": 2,
+        "howigothere__x__sep": "~~>",
+        "howigothere__x__call_format": "{function} [{lineno}: {path}]",
         **namespace_x_colors,
-        "whereami__mono__no_color": True,
-        "whereami__mono__y__call_format": "{function}",
+        "howigothere__mono__no_color": True,
+        "howigothere__mono__y__call_format": "{function}",
     })
     f()
