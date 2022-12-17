@@ -1,5 +1,5 @@
 """
-Utility functions used by `whereami()`.
+Utility functions used by `howigothere()`.
 """
 
 import inspect

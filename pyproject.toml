@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "whereami"
+name = "howigothere"
 description = "Python module to create a condensed stack preview"
 readme = "README.md"
 requires-python = ">=3.6"
@@ -27,14 +27,14 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/vsego/whereami"
-"Bug Tracker" = "https://github.com/vsego/whereami/issues"
-"Changelog" = "https://github.com/vsego/whereami/blob/master/CHANGELOG.md"
+"Homepage" = "https://github.com/vsego/howigothere"
+"Bug Tracker" = "https://github.com/vsego/howigothere/issues"
+"Changelog" = "https://github.com/vsego/howigothere/blob/master/CHANGELOG.md"
 
 [tool]
 
 [tool.hatch.version]
-path = "src/whereami/version.py"
+path = "src/howigothere/version.py"
 
 [tool.hatch.build.targets.sdist]
 exclude = [
@@ -42,4 +42,4 @@ exclude = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/whereami"]
+packages = ["src/howigothere"]
