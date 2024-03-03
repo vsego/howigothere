@@ -42,13 +42,18 @@ class TestsBase(unittest.TestCase):
 class SomeClass:
 
     @staticmethod
-    def some_method(start_from_dir: Optional[str | tuple[str, ...]]):
-        def some_inner_function() -> str:
+    def some_method(
+        start_from_dir: Optional[str | tuple[str, ...]],
+        *,
+        show_args: bool = False,
+    ):
+        def some_inner_function(show_args: bool) -> str:
             return howigothere(
                 no_color=True,
                 start_from_dir=start_from_dir,
+                show_args=show_args,
             )
-        return some_inner_function()
+        return some_inner_function(show_args)
 
 
 class _MockColoramaConstant:

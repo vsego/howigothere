@@ -16,6 +16,9 @@ _default_col_sep: str
 _default_col_func: str
 _default_col_path: str
 _default_col_lineno: str
+_default_col_arg_name: str
+_default_col_arg_eq: str
+_default_col_arg_value: str
 try:
     from colorama import Style, Fore
 except ImportError:
@@ -24,12 +27,19 @@ except ImportError:
     _default_col_func = ""
     _default_col_path = ""
     _default_col_lineno = ""
+    _default_col_arg_name = ""
+    _default_col_arg_eq = ""
+    _default_col_arg_value = ""
 else:
     _default_col_reset = Style.RESET_ALL
     _default_col_sep = ""
     _default_col_func = Style.BRIGHT + Fore.GREEN
     _default_col_path = Style.BRIGHT + Fore.CYAN
     _default_col_lineno = Fore.CYAN
+    _default_col_arg_name = Style.BRIGHT + Fore.BLUE
+    _default_col_arg_eq = Style.BRIGHT + Fore.GREEN
+    _default_col_arg_value = Style.BRIGHT + Fore.YELLOW
+_default_show_args: bool = False
 
 
 class HowIGotHereSettings(SettingsCollector):
@@ -44,6 +54,10 @@ class HowIGotHereSettings(SettingsCollector):
     color_func = SC_Setting(_default_col_func, value_type=str)
     color_path = SC_Setting(_default_col_path, value_type=str)
     color_lineno = SC_Setting(_default_col_lineno, value_type=str)
+    color_arg_name = SC_Setting(_default_col_arg_name, value_type=str)
+    color_arg_eq = SC_Setting(_default_col_arg_eq, value_type=str)
+    color_arg_value = SC_Setting(_default_col_arg_value, value_type=str)
+    show_args = SC_Setting(_default_show_args, value_type=bool)
     start_from_dir = SC_Setting(None)
 
 
@@ -52,7 +66,8 @@ def howigothere(
     *,
     namespace: Optional[str] = None, keep_dirs: Optional[int], sep: str,
     call_format: str, no_color: bool, color_reset: str, color_sep: str,
-    color_func: str, color_path: str, color_lineno: str,
+    color_func: str, color_path: str, color_lineno: str, show_args: bool,
+    color_arg_name: str, color_arg_eq: str, color_arg_value: str,
     start_from_dir: Optional[str | tuple[str, ...]] = None,
 ) -> str:
     """
@@ -82,6 +97,8 @@ def howigothere(
         Colorama's `Style.RESET_ALL`, but it can be set to something else too,
         especially if a different coloring library is used.
     :param color_*: Color of a sep(arator), func(tion), path, and line number.
+    :param show_args: If `True`, the values of arguments in the calls will also
+        be displayed.
     :param start_from_dir: If set as a string, exclude all calls until one
         happens in a file belonging to a directory or subdirectory of
         `start_from_dir` (which is given as either an absolute one or one
@@ -114,6 +131,18 @@ def howigothere(
             else:
                 continue
         function = ct(frame_info.function, color_func, *cargs)
+        if show_args:
+            args_str = inspect.formatargvalues(
+                *inspect.getargvalues(frame_info.frame),
+                lambda name: ct(name, color_arg_name, *cargs),
+                lambda name: ct(f"*{name}", color_arg_name, *cargs),
+                lambda name: ct(f"**{name}", color_arg_name, *cargs),
+                lambda value: (
+                    ct("=", color_arg_eq, *cargs)
+                    + ct(repr(value), color_arg_value, *cargs)
+                ),
+            )
+            function = f"{function}{args_str}"
         path = ct(get_path(frame_info, keep_dirs), color_path, *cargs)
         lineno = ct(str(frame_info.lineno), color_lineno, *cargs)
         calls.append(

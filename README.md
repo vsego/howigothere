@@ -5,10 +5,9 @@ stack preview. Useful for debugging to easily trace how some call was made,
 even through a jungle of calls made by frameworks and other packages.
 
 To see it in action, you can run
-[`example.py`](https://github.com/vsego/howigothere/blob/master/example.py) or, if
-you didn't install the package but you only downloaded this repository,
-[`example.sh`](https://github.com/vsego/howigothere/blob/master/example.sh). Both
-approaches require that
+[`example.py`](https://github.com/vsego/howigothere/blob/master/example.py) or,
+if you didn't install the package but you only downloaded this repository,
+`./try_me.sh example.py`. Both approaches require that
 [`settings-collector`](https://pypi.org/project/settings-collector/) is
 installed. The result should look like this:
 
@@ -104,11 +103,23 @@ that its `Fore` and `Style` constants are imported.
 
 * `color_reset` [default: `Style.RESET_ALL`]: This is added to the end of each
   colourisable chunk (separator, function name, etc.).
-* `color_sep` [default: `""`, i.e., no colouring]: Colour used for the
+* `color_sep` [default: `""`, i.e., no colouring]: The colour used for the
   separators between calls.
-* `color_func`[ default: `Style.BRIGHT + Fore.GREEN`]: Colour used for
+* `color_func`[ default: `Style.BRIGHT + Fore.GREEN`]: The colour used for
   functions' names in each call.
-* `color_path` [default: `Style.BRIGHT + Fore.CYAN`]: Colour used for path of
-  the each file containing called functions.
-* `color_lineno` [default: `Fore.CYAN`]: Colour used for the line numbers where
-  calls were made.
+* `color_path` [default: `Style.BRIGHT + Fore.CYAN`]: The colour used for path
+  of the each file containing called functions.
+* `color_lineno` [default: `Fore.CYAN`]: The colour used for the line numbers
+  where calls were made.
+
+There is also support for showing arguments to calls in the stack, turned off
+by default for backwards compatibility. The arguments controlling this are:
+
+* `show_args` [default: `False`]: A switch determining if the arguments should
+  be shown or not.
+* `color_arg_name` [default: `Style.BRIGHT + Fore.BLUE`]: The colour used for
+  arguments' names.
+* `color_arg_eq` [default: `Style.BRIGHT + Fore.GREEN`]: The colour used for
+  the equality sign between arguments' names and values.
+* `color_arg_value` [default: `Style.BRIGHT + Fore.YELLOW`]: The colour used
+  for arguments' values.

@@ -21,24 +21,38 @@ class TestHowIGotHere(TestsBase):
         self.assertEqual(
             result_with_sfd,
             f"test_howigothere (tests/test_howigothere.py:{lineno + 1})"
-            f" > some_method (tests/utils.py:51)"
-            f" > some_inner_function (tests/utils.py:47)",
+            f" > some_method (tests/utils.py:56)"
+            f" > some_inner_function (tests/utils.py:51)",
         )
         self.assertEqual(result_with_sfd_bogus, "")
         self.assertEqual(
             result_with_sfds,
             f"test_howigothere (tests/test_howigothere.py:{lineno + 3})"
-            f" > some_method (tests/utils.py:51)"
-            f" > some_inner_function (tests/utils.py:47)",
+            f" > some_method (tests/utils.py:56)"
+            f" > some_inner_function (tests/utils.py:51)",
         )
         result_with_sfd_moved = (
             f"test_howigothere (tests/test_howigothere.py:{lineno + 4})"
-            f" > some_method (tests/utils.py:51)"
-            f" > some_inner_function (tests/utils.py:47)",
+            f" > some_method (tests/utils.py:56)"
+            f" > some_inner_function (tests/utils.py:51)",
         )
         self.assertTrue(
             result_without_sfd.endswith(result_with_sfd_moved)
             and len(result_without_sfd) > len(result_with_sfd_moved),
+        )
+
+    def test_howigothere_with_args(self):
+        frameinfo = inspect.getframeinfo(inspect.currentframe())
+        result = SomeClass.some_method("tests", show_args=True)
+        self.assertEqual(
+            result,
+            "test_howigothere_with_args("
+            "self=<tests.test_howigothere.TestHowIGotHere"
+            " testMethod=test_howigothere_with_args>)"
+            " (tests/test_howigothere.py:46)"
+            " > some_method(start_from_dir='tests', show_args=True)"
+            " (tests/utils.py:56) > some_inner_function(show_args=True)"
+            " (tests/utils.py:51)",
         )
 
     def test_defaults_without_colorama(self):
