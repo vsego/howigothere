@@ -7,8 +7,7 @@ even through a jungle of calls made by frameworks and other packages.
 To see it in action, you can run
 [`example.py`](https://github.com/vsego/howigothere/blob/master/example.py) or, if
 you didn't install the package but you only downloaded this repository,
-[`example.sh`](https://github.com/vsego/howigothere/blob/master/example.sh). Both
-approaches require that
+`./try_me.sh example.py`. Both approaches require that
 [`settings-collector`](https://pypi.org/project/settings-collector/) is
 installed. The result should look like this:
 
